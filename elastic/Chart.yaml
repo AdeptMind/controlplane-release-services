@@ -1,0 +1,30 @@
+apiVersion: v2
+name: elasticsearch
+description: A Helm chart for deploying Elasticsearch on Control Plane Platform
+type: application
+version: 0.1.0
+appVersion: "8.9.1"  # This matches the default Elasticsearch image version in values.yaml
+
+keywords:
+  - elasticsearch
+  - search
+  - database
+  - nosql
+
+maintainers:
+  - name: Adrien
+    email: adrien@adeptmind.ai
+
+# Dependencies if you need any
+# dependencies:
+#   - name: common
+#     version: 1.x.x
+#     repository: https://charts.bitnami.com/bitnami
+
+home: https://github.com/AdeptMind/adept-deployment/elasticsearch
+sources:
+  - https://www.elastic.co/elasticsearch/
+
+# Annotations (optional)
+annotations:
+  category: Database 
