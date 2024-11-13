@@ -3,6 +3,10 @@ global:
   gvc: ""
   location: "gcp-us-central1"
 
+metadata:
+  tags:
+    cpln/release: cpln-release-elasticsearch
+
 elasticsearch:
   image:
     repository: docker.elastic.co/elasticsearch/elasticsearch

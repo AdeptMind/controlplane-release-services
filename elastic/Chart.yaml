@@ -15,13 +15,7 @@ maintainers:
   - name: Adrien
     email: adrien@adeptmind.ai
 
-# Dependencies if you need any
-# dependencies:
-#   - name: common
-#     version: 1.x.x
-#     repository: https://charts.bitnami.com/bitnami
-
-home: https://github.com/AdeptMind/adept-deployment/elasticsearch
+home: https://github.com/AdeptMind/controlplane-release-services/
 sources:
   - https://www.elastic.co/elasticsearch/
 
