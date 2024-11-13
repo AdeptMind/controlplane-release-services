@@ -18,7 +18,11 @@ spec:
       inheritEnv: false
       env:
         - name: NODE_ROLES
-          value: {{ $nodeType }}
+          value: "[{{ $nodeType }}]"
+        - name: POD_NAME
+          value: es-{{ $nodeType }}
+        - name: WORKLOAD_NAME
+          value: es-{{ $nodeType }}
       livenessProbe:
         exec:
           command:
@@ -53,10 +57,10 @@ spec:
           uri: 'cpln://volumeset/es-{{ $nodeType }}-data'
         - path: /usr/share/elasticsearch/config-custom/elasticsearch.yml
           recoveryPolicy: retain
-          uri: 'cpln://secret/elasticsearch-config'
+          uri: 'cpln://secret/elasticsearch-config-{{ $.Values.cpln.gvc }}'
         - path: /scripts/elasticsearch-init.sh
           recoveryPolicy: retain
-          uri: 'cpln://secret/elasticsearch-init'
+          uri: 'cpln://secret/elasticsearch-init-{{ $.Values.cpln.gvc }}'
   defaultOptions:
     autoscaling:
       maxConcurrency: 0

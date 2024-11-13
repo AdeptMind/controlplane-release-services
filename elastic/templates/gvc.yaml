@@ -1,6 +1,0 @@
-kind: gvc
-name: {{ .Values.global.gvc }}
-spec:
-  staticPlacement:
-    locationLinks:
-      - //location/gcp-us-central1
