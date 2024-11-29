@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-pod
+spec:
+  containers:
+  - name: debug-container
+    image: ubuntu:latest  # or any other image you prefer
+    command: 
+      - sleep
+      - "3600"  # keeps container running for 1 hour 
