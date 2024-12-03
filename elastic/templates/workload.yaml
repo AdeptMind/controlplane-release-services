@@ -18,11 +18,7 @@ spec:
       inheritEnv: false
       env:
         - name: NODE_ROLES
-          value: "[{{ $nodeType }}]"
-        - name: POD_NAME
-          value: es-{{ $nodeType }}
-        - name: WORKLOAD_NAME
-          value: es-{{ $nodeType }}
+          value: "[{{ $config.roles }}]"
       livenessProbe:
         exec:
           command:
