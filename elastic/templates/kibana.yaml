@@ -1,0 +1,31 @@
+{{- if .Values.kibana.enabled }}
+---
+kind: workload
+name: es-kibana
+description: "Kibana workload connecting to Elasticsearch"
+spec:
+  type: standard
+  containers:
+    - name: kibana
+      image: "docker.elastic.co/kibana/kibana:{{ .Values.kibana.image.tag | default "8.16.1" }}"
+      cpu: {{ .Values.kibana.resources.cpu }}
+      memory: {{ .Values.kibana.resources.memory }}
+      env:
+        - name: ELASTICSEARCH_HOST
+          value: "http://es-master-0.es-master:9200"
+      ports:
+        - number: 5601
+          protocol: http
+  defaultOptions:
+    autoscaling:
+      maxConcurrency: 0
+      maxScale: {{ .Values.kibana.replicas }}
+      metric: disabled
+      minScale: {{ .Values.kibana.replicas }}
+  firewallConfig:
+    external:
+      inboundAllowCIDR: []
+      outboundAllowCIDR:
+        - 0.0.0.0/0
+
+{{- end }} 
