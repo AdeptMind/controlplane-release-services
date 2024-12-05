@@ -71,3 +71,12 @@ elasticsearch:
       protocol: http
     - number: 9300
       protocol: tcp
+
+kibana:
+  enabled: true  
+  replicas: 1
+  resources:
+    cpu: 500m
+    memory: 1Gi
+  image:
+    tag: 8.16.1
