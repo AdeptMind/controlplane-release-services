@@ -12,9 +12,8 @@ cpln:
 nameOverride: ""
 tags: {}
 description: ""
-owner: "adrien@adeptmind.ai"
-team: "infra@adeptmind.ai"
-
+owner: "user@mydomain.com"
+team: "infra@mydomain.com"
 
 # Image
 image:
@@ -76,8 +75,7 @@ autoscaling:
 
 # Generic secrets
 secrets:
-  db-host: "testadrien"
-  db-user: "testadrien"
-  db-password: "testadrien"
+  db-host: "testuser"
+  db-user: "testuser"
+  db-password: "testuser"
   # Add more secrets as needed
-
