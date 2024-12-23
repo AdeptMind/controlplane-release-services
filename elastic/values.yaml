@@ -15,6 +15,9 @@ elasticsearch:
   identity:
     name: elasticsearch
 
+  gcs: #key is a secret to restore from GCS
+    key: ""
+
   volume:
     fileSystemType: ext4
     performanceClass: general-purpose-ssd
@@ -79,4 +82,4 @@ kibana:
     cpu: 500m
     memory: 1Gi
   image:
-    tag: 8.16.1
+    tag: 8.9.1

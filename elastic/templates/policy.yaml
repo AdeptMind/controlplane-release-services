@@ -10,3 +10,4 @@ targetKind: secret
 targetLinks:
   - //secret/elasticsearch-config-{{ .Values.cpln.gvc }}
   - //secret/elasticsearch-init-{{ .Values.cpln.gvc }}
+  - //secret/elasticsearch-gcp-key-{{ .Values.cpln.gvc }}
