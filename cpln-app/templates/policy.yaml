@@ -1,0 +1,11 @@
+kind: policy
+name: {{ include "app.name" . }}
+description: "Policy for {{ include "app.name" . }}"
+bindings:
+  - permissions:
+      - reveal
+    principalLinks:
+      - "//gvc/{{ .Values.cpln.gvc }}/identity/{{ include "app.name" . }}"
+targetKind: secret
+targetLinks:
+  - "//secret/{{ include "app.name" . }}"

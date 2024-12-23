@@ -1,0 +1,71 @@
+kind: workload
+gvc: {{ .Values.cpln.gvc }}
+name: {{ include "app.name" . }}
+description: {{ .Values.description | default (include "app.name" .) | quote }}
+tags:
+  {{- include "app.tags" . | nindent 2 }}
+spec:
+  containers:
+    - args: []
+      name: {{ .Values.image.name | replace "cpln-" "" }}
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      port: {{ .Values.container.port }}
+
+      {{- /* Resources */}}
+      cpu: {{ .Values.resources.cpu }}
+      minCpu: {{ .Values.resources.minCpu }}
+      memory: {{ .Values.resources.memory }}
+      minMemory: {{ .Values.resources.minMemory }}
+
+      {{- /* Probes */}}
+      readinessProbe:
+        failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+        httpGet:
+          httpHeaders: []
+          path: {{ .Values.probes.readiness.path }}
+          port: {{ .Values.container.port }}
+          scheme: HTTP
+        initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+        periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
+        successThreshold: {{ .Values.probes.readiness.successThreshold }}
+        timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+
+      {{- /* Environment variables */}}
+      env:
+        {{- with include "app.env" . }}
+        {{- . | nindent 8 }}
+        {{- end }}
+        {{- if and .Values.secrets (gt (len .Values.secrets) 0) }}
+        {{- $root := . }}
+        {{- range $key, $value := .Values.secrets }}
+        - name: {{ $key | upper | replace "-" "_" }}
+          value: cpln://secret/{{ include "app.name" $root }}-secret.{{ $key }}
+        {{- end }}
+        {{- end }}
+      
+  defaultOptions:
+    {{- /* Autoscaling */}}
+    autoscaling:
+      maxConcurrency: {{ .Values.autoscaling.maxConcurrency }}
+      maxScale: {{ .Values.autoscaling.maxScale }}
+      metric: concurrency
+      minScale: {{ .Values.autoscaling.minScale }}
+      scaleToZeroDelay: {{ .Values.autoscaling.scaleToZeroDelay }}
+      target: {{ .Values.autoscaling.target }}
+    capacityAI: {{ .Values.resources.capacityAI }}
+    debug: false
+    timeoutSeconds: 30
+
+  {{- /* Firewall Config */}}
+  firewallConfig:
+    external:
+      inboundAllowCIDR:
+        - 0.0.0.0/0
+      outboundAllowCIDR: []
+      outboundAllowHostname: []
+    internal:
+      inboundAllowType: none
+      inboundAllowWorkload: []
+
+  {{- /* Identity link */}}
+  identityLink: "//gvc/{{ .Values.cpln.gvc }}/identity/{{ include "app.name" . }}"

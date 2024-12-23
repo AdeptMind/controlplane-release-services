@@ -1,0 +1,15 @@
+kind: identity
+name: {{ include "app.name" . }}
+description: "Identity for {{ include "app.name" . }}"
+tags:
+  {{- include "app.tags" . | nindent 2 }}
+links:
+  - href: /org/{{ .Values.cpln.org }}/gvc/{{ .Values.cpln.gvc }}/identity/{{ include "app.name" . }}
+    rel: self
+  - href: /org/{{ .Values.cpln.org }}
+    rel: org
+  - href: /org/{{ .Values.cpln.org }}/gvc/{{ .Values.cpln.gvc }}
+    rel: gvc
+
+
+    

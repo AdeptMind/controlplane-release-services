@@ -1,0 +1,83 @@
+# CPLN Binding
+############################################
+cpln:
+  gvc: "infra-dev"
+  org: "ad-nonprod-c349d9"
+
+#
+# Global config
+############################################
+
+# Global
+nameOverride: ""
+tags: {}
+description: ""
+owner: "adrien@adeptmind.ai"
+team: "infra@adeptmind.ai"
+
+
+# Image
+image:
+  name: "nginx"
+  repository: nginx
+  tag: "latest"
+
+#
+# Resources Config
+############################################
+resources:
+  # CPU
+  cpu: "50m"
+  minCpu: "50m"
+
+  # Memory
+  memory: "128Mi"
+  minMemory: "128Mi"
+
+  # Capacity AI
+  capacityAI: true
+
+#
+# Container Config
+############################################
+container:
+  port: 80
+  env: []
+
+#
+# Probe Config
+############################################
+probes:
+  readiness:
+    path: "/"
+    failureThreshold: 3
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  liveness:
+    path: "/"
+    failureThreshold: 3
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+
+#
+# Auto Scaling Config
+############################################
+autoscaling:
+  maxConcurrency: 1000
+  maxScale: 1
+  minScale: 1
+  scaleToZeroDelay: 300
+  target: 80
+  metric: concurrency
+
+# Generic secrets
+secrets:
+  db-host: "testadrien"
+  db-user: "testadrien"
+  db-password: "testadrien"
+  # Add more secrets as needed
+
